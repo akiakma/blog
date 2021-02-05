@@ -1,12 +1,12 @@
-import express from 'express';
-import bcrypt from 'bcryptjs';
-
-import jwt from 'jsonwebtoken';
-import config from '../../config/index';
+import express from "express";
+import bcrypt from "bcryptjs";
+import auth from "../../middleware/auth";
+import jwt from "jsonwebtoken";
+import config from "../../config/index";
 const { JWT_SECRET } = config;
 
 // Model
-import User from '../../models/user';
+import User from "../../models/user";
 
 const router = express.Router();
 
@@ -14,10 +14,10 @@ const router = express.Router();
 // @desc       Get all user
 // @access     public
 
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         const users = await User.find();
-        if (!users) throw Error('No users');
+        if (!users) throw Error("No users");
         res.status(200).json(users);
     } catch (e) {
         console.log(e);
@@ -29,20 +29,20 @@ router.get('/', async (req, res) => {
 // @desc       Register  user
 // @access     public
 
-router.post('/', (req, res) => {
+router.post("/", (req, res) => {
     console.log(req);
     const { name, email, password } = req.body;
 
     // Simple validation
     if (!name || !email || !password) {
-        return res.status(400).json({ msg: '모든 필드를 채워주세요' });
+        return res.status(400).json({ msg: "모든 필드를 채워주세요" });
     }
     // Check for existing user
     User.findOne({ email }).then(user => {
         if (user)
             return res
                 .status(400)
-                .json({ msg: '이미 가입된 유저가 존재합니다' });
+                .json({ msg: "이미 가입된 유저가 존재합니다" });
         const newUser = new User({
             name,
             email,
@@ -74,6 +74,45 @@ router.post('/', (req, res) => {
             });
         });
     });
+});
+
+// @route    POST   api/user/:username/profile
+// @desc     POST   Edit Password
+// @access   Private
+
+router.post("/:userName/profile", auth, async (req, res) => {
+    try {
+        const { previousPassword, password, rePassword, userId } = req.body;
+        console.log(req.body, "userName Profile");
+        const result = await User.findById(userId, "password");
+
+        bcrypt.compare(previousPassword, result.password).then(isMatch => {
+            if (!isMatch) {
+                return res.status(400).json({
+                    match_msg: "기존 비밀번호와 일치하지 않습니다",
+                });
+            } else {
+                if (password === rePassword) {
+                    bcrypt.genSalt(10, (err, salt) => {
+                        bcrypt.hash(password, salt, (err, hash) => {
+                            if (err) throw err;
+                            result.password = hash;
+                            result.save();
+                        });
+                    });
+                    res.status(200).json({
+                        success_msg: "비밀번호 업데이트에 성공했습니다",
+                    });
+                } else {
+                    res.status(400).json({
+                        fail_msg: "새로운 비밀번호가 일치하지 않습니다",
+                    });
+                }
+            }
+        });
+    } catch (e) {
+        console.log(e);
+    }
 });
 
 export default router;

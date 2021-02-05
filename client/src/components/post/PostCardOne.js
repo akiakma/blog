@@ -13,6 +13,10 @@ import {
 } from "reactstrap";
 
 const PostCardOne = ({ posts }) => {
+    // const clickme = () => {
+    //     e.preventDefault();
+    //     console.log(posts._id);
+    // };
     return (
         <>
             {Array.isArray(posts)
@@ -20,7 +24,7 @@ const PostCardOne = ({ posts }) => {
                       return (
                           <div key={_id} className="col-md-4">
                               <Link
-                                  to={`/posts/${_id}`}
+                                  to={`/post/${_id}`}
                                   className="text-dark text-decoration-none"
                               >
                                   <Card className="mb-3">
@@ -28,6 +32,7 @@ const PostCardOne = ({ posts }) => {
                                           top
                                           alt="카드이미지"
                                           src={fileUrl}
+                                          //   onClick={clickme(posts)}
                                       />
                                       <CardBody>
                                           <CardTitle className="text-truncate d-flex justify-content-between">

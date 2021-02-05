@@ -1,5 +1,5 @@
 import axios from "axios";
-import { all, call, fork, put, takeEvery } from "redux-saga/effects";
+import { all, call, fork, put, takeEvery, delay } from "redux-saga/effects";
 import {
     LOGIN_REQUEST,
     LOGIN_FAILURE,
@@ -16,12 +16,15 @@ import {
     CLEAR_ERROR_REQUEST,
     CLEAR_ERROR_FAILURE,
     CLEAR_ERROR_SUCCESS,
+    PASSWORD_EDIT_UPLOADING_SUCCESS,
+    PASSWORD_EDIT_UPLOADING_REQUEST,
+    PASSWORD_EDIT_UPLOADING_FAILURE,
 } from "../types";
-
+import { push } from "connected-react-router";
 // Login
 
 const loginUserAPI = loginData => {
-    console.log(loginData, "loginData");
+    // console.log(loginData, "loginData");
     const config = {
         headers: {
             "Content-Type": "application/json",
@@ -33,7 +36,7 @@ const loginUserAPI = loginData => {
 function* loginUser(action) {
     try {
         const result = yield call(loginUserAPI, action.payload);
-        console.log(result);
+        // console.log(result);
         yield put({
             type: LOGIN_SUCCESS,
             payload: result.data,
@@ -72,7 +75,7 @@ function* watchlogout() {
 // User Loading
 
 const userLoadingAPI = token => {
-    console.log(token, "token+++++");
+    // console.log(token, "token+++++");
     const config = {
         headers: {
             "Content-Type": "application/json",
@@ -86,9 +89,9 @@ const userLoadingAPI = token => {
 
 function* userLoading(action) {
     try {
-        console.log(action, "userLoading");
+        // console.log(action, "userLoading");
         const result = yield call(userLoadingAPI, action.payload);
-        console.log(result);
+        // console.log(result);
         yield put({
             type: USER_LOADING_SUCCESS,
             payload: result.data,
@@ -152,13 +155,51 @@ function* clearError() {
 function* watchclearError() {
     yield takeEvery(CLEAR_ERROR_REQUEST, clearError);
 }
+// Edit Password
+
+const EditPasswordAPI = payload => {
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    const token = payload.token;
+
+    if (token) {
+        config.headers["x-auth-token"] = token;
+    }
+    return axios.post(`/api/user/${payload.userName}/profile`, payload, config);
+};
+
+function* EditPassword(action) {
+    try {
+        console.log(action, "EditPassword");
+        const result = yield call(EditPasswordAPI, action.payload);
+        yield put({
+            type: PASSWORD_EDIT_UPLOADING_SUCCESS,
+            payload: result,
+        });
+        yield delay(3000);
+        yield put(push("/"));
+    } catch (e) {
+        yield put({
+            type: PASSWORD_EDIT_UPLOADING_FAILURE,
+            payload: e.response,
+        });
+    }
+}
+
+function* watchEditPassword() {
+    yield takeEvery(PASSWORD_EDIT_UPLOADING_REQUEST, EditPassword);
+}
 
 export default function* authSaga() {
     yield all([
         fork(watchLoginUser),
         fork(watchlogout),
-        fork(watchuserLoading),
         fork(watchregisterUser),
         fork(watchclearError),
+        fork(watchuserLoading),
+        fork(watchEditPassword),
     ]);
 }

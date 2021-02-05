@@ -20,9 +20,6 @@ import {
     SEARCH_REQUEST,
     SEARCH_SUCCESS,
     SEARCH_FAILURE,
-    POST_UPLOADING_SUCCESS,
-    POST_UPLOADING_FAILURE,
-    POST_UPLOADING_REQUEST,
 } from "../types";
 
 const initialState = {
@@ -39,12 +36,12 @@ const initialState = {
     searchResult: "",
 };
 
-export default function (state = initialState, action) {
+export default function auth(state = initialState, action) {
     switch (action.type) {
         case POSTS_LOADING_REQUEST:
             return {
                 ...state,
-
+                posts: [],
                 loading: true,
             };
         case POSTS_LOADING_SUCCESS:
@@ -171,24 +168,6 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 searchResult: action.payload,
-                loading: false,
-            };
-        case POST_UPLOADING_REQUEST:
-            return {
-                ...state,
-                loading: true,
-            };
-        case POST_UPLOADING_SUCCESS:
-            return {
-                ...state,
-                posts: action.payload,
-                isAuthenticated: true,
-                loading: false,
-            };
-        case POST_UPLOADING_FAILURE:
-            return {
-                ...state,
-                error: action.payload,
                 loading: false,
             };
         default:

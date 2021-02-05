@@ -14,13 +14,14 @@ import LoginModal from "./auth/LoginModal";
 import { useDispatch, useSelector } from "react-redux";
 import { LOGOUT_REQUEST } from "../redux/types";
 import RegisterModal from "./auth/RegisterModal";
+import SearchInput from "./search/searchInput";
 
 const AppNavbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { isAuthenticated, user, userRole } = useSelector(
         state => state.auth
     );
-    console.log(userRole, "UserRole");
+    // console.log(userRole, "UserRole");
     const dispatch = useDispatch();
 
     const onLogout = useCallback(() => {
@@ -110,6 +111,7 @@ const AppNavbar = () => {
                     </Link>
                     <NavbarToggler onClick={handleToggle} />
                     <Collapse isOpen={isOpen} navbar>
+                        <SearchInput isOpen={isOpen} />
                         <Nav
                             className="ml-auto d-flex justify-content-around"
                             navbar
