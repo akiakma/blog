@@ -15,7 +15,7 @@ import searchRoutes from "./routes/api/ search";
 const app = express();
 const { MONGO_URI } = config;
 
-const prod = process.env.NODE_ENV === "prodction";
+const prod = process.env.NODE_ENV === "production";
 
 app.use(hpp());
 app.use(helmet());
