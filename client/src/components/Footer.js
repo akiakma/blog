@@ -1,21 +1,45 @@
-import React from 'react';
-import { Row, Col } from 'reactstrap';
-
+import React from "react";
+import { Layout, Tag } from "antd";
+import {
+    TwitterOutlined,
+    YoutubeOutlined,
+    FacebookOutlined,
+    LinkedinOutlined,
+} from "@ant-design/icons";
 const Footer = () => {
-    const thisYear = () => {
-        const year = new Date().getFullYear();
-        return year;
-    };
+    const { Footer } = Layout;
+
     return (
-        <div id="main-footer" className="text-center p-2">
-            <Row>
-                <Col>
-                    <p>
-                        Copyright &copy; <span>{thisYear()}</span>
-                    </p>
-                </Col>
-            </Row>
-        </div>
+        <>
+            <Footer
+                style={{
+                    textAlign: "center",
+                    backgroundColor: "black",
+                    color: "whiteSmoke",
+                }}
+            >
+                <Tag icon={<TwitterOutlined />} color="#55acee">
+                    <a href="https://twitter.com/wang_crypto" target="_blank">
+                        Twitter
+                    </a>
+                </Tag>
+                <Tag icon={<YoutubeOutlined />} color="#cd201f">
+                    Youtube
+                </Tag>
+                <Tag icon={<FacebookOutlined />} color="#3b5999">
+                    Facebook
+                </Tag>
+                <Tag icon={<LinkedinOutlined />} color="#55acee">
+                    LinkedIn
+                </Tag>
+                <div>
+                    <br />
+                    <strong>Akiakmapro@gmail.com</strong>
+                    <br />
+                    Copyright ©2021 Austin Hyunjun Kim | All Rights Reserved
+                </div>
+            </Footer>
+        </>
     );
 };
 

@@ -1,7 +1,9 @@
 import React, { useState, useRef, Fragment } from "react";
-import { Form, Input } from "reactstrap";
+// import { Form, Input } from "reactstrap";
 import { useDispatch } from "react-redux";
 import { SEARCH_REQUEST } from "../../redux/types";
+import { Input, Space } from "antd";
+import { AudioOutlined } from "@ant-design/icons";
 
 const SearchInput = () => {
     const dispatch = useDispatch();
@@ -29,15 +31,34 @@ const SearchInput = () => {
     };
     const resetValue = useRef(null);
 
+    const { Search } = Input;
+
+    const suffix = (
+        <AudioOutlined
+            style={{
+                fontSize: 16,
+                color: "#1890ff",
+            }}
+        />
+    );
+
+    const onSearch = value => console.log(value);
     return (
         <Fragment>
-            <Form onSubmit={onSubmit} className="col mt-2">
+            <Space direction="vertical">
+                <Search
+                    placeholder=""
+                    onSearch={onSearch}
+                    style={{ width: 100 }}
+                />
+            </Space>
+            {/* <Form onSubmit={onSubmit}>
                 <Input
                     name="searchBy"
                     onChange={onChange}
                     innerRef={resetValue}
                 />
-            </Form>
+            </Form> */}
         </Fragment>
     );
 };

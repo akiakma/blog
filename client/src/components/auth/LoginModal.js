@@ -14,6 +14,7 @@ import {
 } from "reactstrap";
 import {} from "reactstrap";
 import { CLEAR_ERROR_REQUEST, LOGIN_REQUEST } from "../../redux/types";
+import { Layout, Menu } from "antd";
 
 const LoginModal = () => {
     const [modal, setModal] = useState(false);
@@ -24,9 +25,10 @@ const LoginModal = () => {
     });
     const dispatch = useDispatch();
     const { errorMsg } = useSelector(state => state.auth);
+
     useEffect(() => {
         try {
-            setLocalMsg(errorMsg);
+            console.log("zz");
         } catch (e) {
             console.log(e);
         }
@@ -56,6 +58,7 @@ const LoginModal = () => {
             payload: user,
         });
     };
+
     return (
         <div>
             <NavLink onClick={handleToggle} href="#">

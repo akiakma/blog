@@ -438,10 +438,6 @@ module.exports = function (webpackEnv) {
                                             },
                                         },
                                     ],
-                                    [
-                                        "transform-remove-console",
-                                        { exclude: ["error", "wran"] },
-                                    ],
                                     isEnvDevelopment &&
                                         shouldUseReactRefresh &&
                                         require.resolve("react-refresh/babel"),

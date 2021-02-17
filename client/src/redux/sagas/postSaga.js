@@ -80,8 +80,9 @@ function* uploadPosts(action) {
             type: POST_UPLOADING_SUCCESS,
             payload: result.data,
         });
+        yield put(push("/board"));
         // console.log("result+++++:", result.data);
-        yield put(push(`/post/${result.data._id}`));
+        // yield put(push(`/post/${result.data._id}`));
     } catch (e) {
         yield put({
             type: POST_UPLOADING_FAILURE,
@@ -145,7 +146,7 @@ function* DeletePost(action) {
             type: POST_DELETE_SUCCESS,
             payload: result.data,
         });
-        yield put(push("/"));
+        yield put(push("/board"));
     } catch (e) {
         yield put({
             type: POST_DELETE_FAILURE,
@@ -212,11 +213,13 @@ const PostEditUploadAPI = payload => {
 function* PostEditUpload(action) {
     try {
         const result = yield call(PostEditUploadAPI, action.payload);
+        console.log("편집값:", result);
         yield put({
             type: POST_EDIT_UPLOADING_SUCCESS,
             payload: result.data,
         });
-        yield put(push(`/post/${result.data._id}`));
+        yield put(push("/board"));
+        // yield put(push(`/post/${result.data._id}`));
     } catch (e) {
         yield put({
             type: POST_EDIT_UPLOADING_FAILURE,

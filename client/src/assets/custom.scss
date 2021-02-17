@@ -12,7 +12,11 @@
     padding-top: 60px;
 }
 #app-navbar {
-    background-color: #030513;
+    background-color: #383839;
+    margin-bottom: 1rem;
+    .app-navbar-FaBitcoin {
+        font-size: 1.6rem;
+    }
 }
 #main-body {
     min-height: 90vh;
@@ -22,6 +26,12 @@
     width: 100%;
     height: 15rem;
     object-fit: cover;
+}
+
+//antd design
+
+.ant-layout-header {
+    font-family: monospace;
 }
 
 // CKEditor5 Setting
@@ -56,4 +66,397 @@ textarea {
     &:last-child {
         margin-bottom: 0.25rem;
     }
+}
+
+.site-layout-content {
+    min-height: 280px;
+    padding: 24px;
+    background: rgb(0, 0, 0);
+}
+#components-layout-demo-top .logo {
+    float: left;
+    width: 120px;
+    height: 31px;
+    margin: 16px 24px 16px 0;
+    background: rgba(255, 255, 255, 0.3);
+}
+.ant-row-rtl #components-layout-demo-top .logo {
+    float: right;
+    margin: 16px 0 16px 24px;
+}
+.LoadingSpinner {
+    margin: auto;
+}
+// @charset "utf-8";
+
+.Coins {
+    background-color: rgb(218, 213, 213);
+    height: calc(100% - 50px);
+    overflow: auto;
+}
+
+.Coin__List .List__Head {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0.8rem 0;
+    text-align: center;
+}
+.Coin__List .List__Head span {
+    font-size: 0.75rem;
+    color: #a9a9a9;
+}
+.Coin__List .Coin__Name {
+    width: 100px;
+}
+.Coin__List .Coin__Price {
+    width: 100px;
+}
+.Coin__List .Coin__Change__Price {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    text-align: right;
+}
+.Coin__List .Coin__Volume {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.Coins::-webkit-scrollbar {
+    width: 10px; /* 세로축 스크롤바 길이 */
+    height: 5px; /* 가로축 스크롤바 길이 */
+}
+.Coins::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+.Coins::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+}
+.Coins::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #d9d9d9;
+}
+.Coins::-webkit-scrollbar-button:start {
+    background-color: transparent; /* Top, Left 방향의 이동버튼 */
+}
+.Coins::-webkit-scrollbar-button:end {
+    background-color: transparent; /* Bottom, Right 방향의 이동버튼 */
+}
+
+.FALL * {
+    color: #7878e3 !important;
+}
+.RISE * {
+    color: #f14f4f !important;
+}
+.marqueeStyle {
+    border: none;
+}
+.chart-header {
+    display: flex;
+    justify-content: center;
+}
+.chart-header-second {
+    display: flex;
+    justify-content: center;
+}
+.chart-header-h1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+    border: 1px solid red;
+    color: red;
+    font-family: "Courier New", Courier, monospace;
+    margin-right: 1rem;
+}
+.chart-header-h2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+    border: 1px solid green;
+    color: green;
+    font-family: "Courier New", Courier, monospace;
+    margin-right: 1rem;
+}
+.chart_header_local {
+    color: white;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1.5rem;
+    text-align: center;
+}
+.chart_header_number {
+    color: green;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1.5rem;
+    text-align: center;
+}
+/* 코인 차트 부분*/
+.chart-Component {
+    height: 100vh;
+    margin-top: 3rem;
+}
+.chart_list {
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.12);
+    background-color: #dfd5d5;
+    width: 700px;
+    min-width: 600px;
+    height: 80%;
+}
+.chart_list_head {
+    background-color: rgb(214, 202, 202);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 0.3rem;
+    height: 2rem;
+}
+
+/*코인 목록들*/
+
+.coin_list_change {
+    font-weight: 440;
+}
+.coin_list {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eaeaf0;
+    height: 3rem;
+}
+.coin_list:hover {
+    background-color: rgb(235, 225, 225);
+    cursor: pointer;
+}
+.pTagbold {
+    font-weight: bold;
+    margin-bottom: -0.5rem;
+}
+.semiCode {
+    font-size: 0.7rem;
+    color: rgb(134, 132, 132);
+    font-weight: 300;
+}
+.semiPrice {
+    font-size: 0.7rem;
+}
+.coinImg {
+    background-image: url("https://static.upbit.com/logos/ETH.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 0.9rem;
+}
+.coin_list_name {
+    width: 12rem;
+    display: flex;
+    margin-left: 0rem;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.coin_list_name_children {
+    width: 7rem;
+}
+.coin_list_price {
+    display: flex;
+    position: relative;
+    margin-left: -3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 7rem;
+    div {
+        width: 6rem;
+        text-align: right;
+    }
+}
+.coin_list_change {
+    width: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    span {
+        margin-top: -1rem;
+    }
+}
+.coin_list_volume {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: right;
+    width: 6.5rem;
+    margin-left: 1rem;
+    margin-right: 2rem;
+
+    div {
+        span {
+            color: rgb(134, 132, 132);
+            text-align: right;
+            font-size: 0.7rem;
+            margin-left: 0.2rem;
+        }
+    }
+}
+.chart {
+    display: flex;
+    justify-content: space-around;
+    background-color: rgb(168, 151, 151);
+    border-radius: 3rem;
+}
+
+// coinMarketCap
+.chart-marketCap {
+    margin-top: 3rem;
+    width: 50rem;
+    height: 80vh;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.12);
+    background-color: #dad5d5;
+}
+.marketCap {
+    height: calc(100% - 50px);
+    overflow: auto;
+    background-color: #dad5d5;
+}
+.marketCap_head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    height: 2rem;
+    background-color: rgb(214, 202, 202);
+}
+.marketCap_order {
+    width: 5%;
+    text-align: center;
+}
+.marketCap_name {
+    width: 33%;
+    text-align: center;
+}
+.marketCap_7d {
+    width: 7%;
+    text-align: center;
+}
+.marketCap_30d {
+    width: 7%;
+    text-align: center;
+}
+.marketCap_1y {
+    width: 7%;
+    text-align: center;
+}
+.marketCap_change {
+    width: 20%;
+    text-align: center;
+}
+.marketCap_listItem {
+    display: flex;
+    justify-content: space-between;
+    height: 3rem;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: 600;
+    border-bottom: 1px dotted rgb(136, 126, 126);
+}
+.marketCap_listItem:hover {
+    border: 1px solid black;
+}
+
+.marketCap_listItem_order {
+    width: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.marketCap_listItem_name {
+    display: flex;
+    justify-content: space-between;
+    width: 35%;
+}
+.marketCap_listItem_img {
+    margin-top: 0.5rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.9rem;
+    border: 1;
+}
+.marketCap_listItem_symbol {
+    display: flex;
+    align-items: center;
+    font-family: "Courier New", Courier, monospace;
+    width: 85%;
+}
+.marketCap_listItem_symbol_child {
+    width: 100%;
+    text-align: left;
+}
+.marketCap_listItem_7d {
+    width: 7%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.marketCap_listItem_30d {
+    width: 7%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.marketCap_listItem_1y {
+    width: 7%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.marketCap_listItem_MarketCap {
+    width: 20%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.marketCap::-webkit-scrollbar {
+    width: 10px; /* 세로축 스크롤바 길이 */
+    height: 5px; /* 가로축 스크롤바 길이 */
+}
+.marketCap::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+.marketCap::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+}
+.marketCap::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #d9d9d9;
+}
+.marketCap::-webkit-scrollbar-button:start {
+    background-color: transparent; /* Top, Left 방향의 이동버튼 */
+}
+.marketCap::-webkit-scrollbar-button:end {
+    background-color: transparent; /* Bottom, Right 방향의 이동버튼 */
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+// route>normalRoute>Home
+.home {
+    height: 100vh;
 }

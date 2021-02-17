@@ -41,6 +41,7 @@ function* loginUser(action) {
             type: LOGIN_SUCCESS,
             payload: result.data,
         });
+        yield put(push("/home"));
     } catch (e) {
         yield put({
             type: LOGIN_FAILURE,

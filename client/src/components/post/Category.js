@@ -1,28 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Badge, Button } from "reactstrap";
+//
+
+import { Tag } from "antd";
+const { CheckableTag } = Tag;
 
 const Category = ({ posts }) => {
-    console.log("포스트", posts);
     return (
         <>
+            <span style={{ marginRight: 8 }}>categories:</span>
             {Array.isArray(posts)
-                ? posts.map(({ _id, categoryName, posts }) => (
-                      <div key={_id} className="mx-1 mt-1 my_category">
-                          <Link
-                              to={`/post/category/${categoryName}`}
-                              className="text-dark text-decoration-none"
-                          >
-                              <span className="ml-1">
-                                  <Button color="info">
-                                      {categoryName}
-                                      <Badge color="light">
-                                          {posts.length}
-                                      </Badge>
-                                  </Button>
-                              </span>
+                ? posts.map(tag => (
+                      <CheckableTag key={tag._id}>
+                          <Link to={`/board/category/${tag.categoryName}`}>
+                              {tag.categoryName}
                           </Link>
-                      </div>
+                      </CheckableTag>
                   ))
                 : null}
         </>

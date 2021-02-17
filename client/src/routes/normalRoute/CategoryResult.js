@@ -4,14 +4,15 @@ import { useParams } from "react-router-dom";
 import { CATEGORY_FIND_REQUEST } from "../../redux/types";
 import PostCardOne from "../../components/post/PostCardOne";
 import { Row } from "reactstrap";
+import { PageHeader } from "antd";
 
 const CategoryResult = () => {
     const dispatch = useDispatch();
     let { categoryName } = useParams();
     const { categoryFindResult } = useSelector(state => state.post);
 
-    console.log(categoryFindResult);
-    console.log(categoryName);
+    // console.log(categoryFindResult);
+    // console.log(categoryName);
 
     useEffect(() => {
         dispatch({
@@ -22,7 +23,12 @@ const CategoryResult = () => {
 
     return (
         <div>
-            <h1>Category: "{categoryName}"</h1>
+            <PageHeader
+                className="site-page-header"
+                title="Category"
+                subTitle={categoryName}
+            />
+
             <Row>
                 <PostCardOne posts={categoryFindResult.posts} />
             </Row>

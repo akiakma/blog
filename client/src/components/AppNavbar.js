@@ -9,7 +9,7 @@ import {
     Form,
     Button,
 } from "reactstrap";
-import { Link } from "react-router-dom";
+
 import LoginModal from "./auth/LoginModal";
 import { useDispatch, useSelector } from "react-redux";
 import { LOGOUT_REQUEST } from "../redux/types";
@@ -103,25 +103,26 @@ const AppNavbar = () => {
     );
 
     return (
-        <Fragment>
-            <Navbar id="app-navbar" expand="lg" className="sticky-top">
-                <Container>
-                    <Link to="/" className="text-white text-decoration-none">
-                        기술블로그
-                    </Link>
-                    <NavbarToggler onClick={handleToggle} />
-                    <Collapse isOpen={isOpen} navbar>
-                        <SearchInput isOpen={isOpen} />
-                        <Nav
-                            className="ml-auto d-flex justify-content-around"
-                            navbar
-                        >
-                            {isAuthenticated ? authLink : guestLink}
-                        </Nav>
-                    </Collapse>
-                </Container>
-            </Navbar>
-        </Fragment>
+        // <Fragment>
+        //     <Navbar id="app-navbar" expand="lg" className="sticky-top">
+        //         <Container>
+        //             <Link to="/" className="text-white text-decoration-none">
+        //                 기술블로그
+        //             </Link>
+        //             <NavbarToggler onClick={handleToggle} />
+        //             <Collapse isOpen={isOpen} navbar>
+        //                 <SearchInput isOpen={isOpen} />
+        //                 <Nav
+        //                     className="ml-auto d-flex justify-content-around"
+        //                     navbar
+        //                 >
+        //                     {isAuthenticated ? authLink : guestLink}
+        //                 </Nav>
+        //             </Collapse>
+        //         </Container>
+        //     </Navbar>
+        // </Fragment>
+        <></>
     );
 };
 

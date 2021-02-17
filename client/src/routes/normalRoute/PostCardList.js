@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { POSTS_LOADING_REQUEST } from "../../redux/types";
 import { Helmet } from "react-helmet";
 import { Row } from "reactstrap";
-import GrowingSpinner from "../../components/spinner/Spinner";
+import LoadingSpinner from "../../components/spinner/LoadingSpinner";
 import PostCardOne from "../../components/post/PostCardOne";
 import Category from "../../components/post/Category";
 
@@ -17,12 +17,12 @@ const PostCardList = () => {
 
     return (
         <Fragment>
-            <Helmet title="Home" />
-            <Row className="border-bottom border-top border-primary py-2 mb-3">
+            <Helmet title="Board" />
+            <Row className="py-2 mb-3">
                 <Category posts={categoryFindResult} />
             </Row>
             <Row>
-                {posts ? <PostCardOne posts={posts} /> : <GrowingSpinner />}
+                {posts ? <PostCardOne posts={posts} /> : <LoadingSpinner />}
             </Row>
         </Fragment>
     );

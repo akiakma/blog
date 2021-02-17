@@ -24,6 +24,7 @@ const PostWrite = () => {
         title: "",
         contents: "",
         fileUrl: "",
+        category: "",
     });
     const dispatch = useDispatch();
 

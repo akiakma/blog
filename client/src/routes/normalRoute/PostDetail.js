@@ -6,7 +6,7 @@ import {
     POST_DELETE_REQUEST,
     USER_LOADING_REQUEST,
 } from "../../redux/types";
-import { Button, Row, Col, Container } from "reactstrap";
+import { Row, Col, Container } from "reactstrap";
 import { Link } from "react-router-dom";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import GrowingSpinner from "../../components/spinner/Spinner";
@@ -19,9 +19,9 @@ import {
 import BalloonEditor from "@ckeditor/ckeditor5-editor-balloon/src/ballooneditor";
 import { editorConfiguration } from "../../components/editor/EditorConfig";
 import Comments from "../../components/comments/Comments";
-
+import { Button, Menu, Dropdown } from "antd";
+// import { EditOutlined } from "@ant-design/icons";
 const PostDetail = req => {
-    //
     const dispatch = useDispatch();
     const { postDetail, creatorId, title, loading } = useSelector(
         state => state.post
@@ -49,81 +49,52 @@ const PostDetail = req => {
             },
         });
     };
-
-    const EditButton = (
-        <>
-            <Row className="d-flex justify-content-center pb-3">
-                <Col className="col-md-3 mr-md-3">
-                    <Link to="/" className="btn btn-primary btn-block">
-                        Home
-                    </Link>
-                </Col>
-                <Col className="col-md-3 mr-md-3">
-                    <Link
-                        to={`/post/${req.match.params.id}/edit`}
-                        className="btn btn-success btn-block"
-                    >
-                        Edit
-                    </Link>
-                </Col>
-                <Col className="col-md-3">
-                    <Button
-                        className="btn-block btn-danger"
-                        onClick={onDeleteClick}
-                    >
-                        Delete
-                    </Button>
-                </Col>
-            </Row>
-        </>
+    const menu = (
+        <Menu>
+            <Menu.Item key="1">
+                <Link to={`/post/${req.match.params.id}/edit`}>Edit</Link>
+            </Menu.Item>
+            <Menu.Item key="2" onClick={onDeleteClick}>
+                Delete
+            </Menu.Item>
+        </Menu>
     );
 
-    const HomeButton = (
-        <>
-            <Row className="d-flex justify-content-center pb-3">
-                <Col className="col-sm-12 com-md-3">
-                    <Link to="/" className="btn btn-primary btn-block">
-                        Home
-                    </Link>
-                </Col>
-            </Row>
-        </>
-    );
     const Body = (
         <>
-            {userId === creatorId ? EditButton : HomeButton}
-            <Row className="border-bottom border-top border-primary p-3 mb-3 d-flex justify-content-between">
+            <Row className="border-bottom border-top border-black p-3 mb-5 d-flex justify-content-between">
                 {(() => {
                     if (postDetail && postDetail.creator) {
                         return (
                             <Fragment>
                                 <div className="font-weight-bold text-big">
                                     <span className="mr-3">
-                                        <Button color="info">
+                                        <button disabled>
                                             {postDetail.category.categoryName}
-                                        </Button>
+                                        </button>
                                     </span>
                                     {postDetail.title}
                                 </div>
                                 <div className="align-self-end">
-                                    {postDetail.creator.name}
+                                    <Dropdown.Button overlay={menu}>
+                                        <strong>
+                                            {postDetail.creator.name}
+                                        </strong>
+                                    </Dropdown.Button>
                                 </div>
                             </Fragment>
                         );
                     }
                 })()}
             </Row>
-            {postDetail && postDetail.comments ? (
+            {postDetail ? (
                 <Fragment>
                     <div className="d-flex justify-content-end align-items-baseline small">
-                        <FontAwesomeIcon icon={faPencilAlt} />
                         &nbsp;
                         <span>{postDetail.date}</span>
                         &nbsp;&nbsp;
-                        <FontAwesomeIcon icon={faCommentDots} />
-                        <span>{postDetail.comments.length}</span>
+                        {/* <span>{postDetail.comments.length}</span> */}
                         &nbsp;&nbsp;
-                        <FontAwesomeIcon icon={faMouse} />
                         <span>{postDetail.views}</span>
                     </div>
                     <Row className="mb-3">
@@ -134,7 +105,8 @@ const PostDetail = req => {
                             disabled="true"
                         />
                     </Row>
-                    <Row>
+                    <Row>안녕?</Row>
+                    {/* <Row>
                         <Container className="mb-3 border border-blue rounded">
                             {Array.isArray(comments)
                                 ? comments.map(
@@ -170,16 +142,15 @@ const PostDetail = req => {
                                 userName={userName}
                             />
                         </Container>
-                    </Row>
+                    </Row> */}
                 </Fragment>
             ) : null}
         </>
     );
-    console.log(postDetail);
 
     return (
         <div>
-            <Helmet title={`Post | ${title}`} />
+            <Helmet title={`Board | ${title}`} />
             {loading === true ? GrowingSpinner : Body}
         </div>
     );
