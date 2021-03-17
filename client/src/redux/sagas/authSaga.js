@@ -61,6 +61,7 @@ function* logout(action) {
         yield put({
             type: LOGOUT_SUCCESS,
         });
+        yield put(push("/home"));
     } catch (e) {
         yield put({
             type: LOGOUT_FAILURE,

@@ -49,7 +49,7 @@ const PostWrite = () => {
     // 첫번째 url값 추출하고 그 값을 게시글 대표사진으로 쓰는 로직.
     const getDataFromCKEditor = (event, editor) => {
         const data = editor.getData();
-        console.log(data, "data");
+        console.log("data", data);
 
         if (data && data.match("<img src=")) {
             const whereImg_start = data.indexOf("<img src=");
@@ -82,7 +82,7 @@ const PostWrite = () => {
                 );
             }
 
-            console.log(result_Img_Url, "result_Img_Url");
+            console.log("result_Img_Url", result_Img_Url);
             setValues({
                 ...form,
                 fileUrl: result_Img_Url,

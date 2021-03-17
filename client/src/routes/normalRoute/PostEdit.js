@@ -32,7 +32,7 @@ const PostEdit = () => {
         const token = localStorage.getItem("token");
         const id = postDetail._id;
         const body = { title, contents, fileUrl, category, token, id };
-        console.log("현준아이거봐", body);
+
         dispatch({
             type: POST_EDIT_UPLOADING_REQUEST,
             payload: body,

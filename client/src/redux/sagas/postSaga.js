@@ -38,7 +38,7 @@ const loadPostAPI = () => {
 function* loadPosts() {
     try {
         const result = yield call(loadPostAPI);
-        console.log(result, "loadPosts");
+
         yield put({
             type: POSTS_LOADING_SUCCESS,
             payload: result.data,
@@ -73,16 +73,13 @@ const uploadPostAPI = payload => {
 
 function* uploadPosts(action) {
     try {
-        // console.log(action, "uploadPost function+++");
         const result = yield call(uploadPostAPI, action.payload);
-        // console.log(result, "uploadPostAPI, action.payload====");
+
         yield put({
             type: POST_UPLOADING_SUCCESS,
             payload: result.data,
         });
         yield put(push("/board"));
-        // console.log("result+++++:", result.data);
-        // yield put(push(`/post/${result.data._id}`));
     } catch (e) {
         yield put({
             type: POST_UPLOADING_FAILURE,
@@ -98,15 +95,13 @@ function* watchuploadPosts() {
 
 // Post Detail
 const loadPostDetailAPI = payload => {
-    console.log(payload);
     return axios.get(`/api/post/${payload}`);
 };
 
 function* loadPostDetail(action) {
     try {
-        console.log(action);
         const result = yield call(loadPostDetailAPI, action.payload);
-        console.log(result, "post_detail_saga_data");
+
         yield put({
             type: POST_DETAIL_LOADING_SUCCESS,
             payload: result.data,
@@ -213,7 +208,7 @@ const PostEditUploadAPI = payload => {
 function* PostEditUpload(action) {
     try {
         const result = yield call(PostEditUploadAPI, action.payload);
-        console.log("편집값:", result);
+
         yield put({
             type: POST_EDIT_UPLOADING_SUCCESS,
             payload: result.data,

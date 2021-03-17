@@ -26,14 +26,3 @@ const store = createStore(
 sagaMiddleware.run(rootSaga);
 
 export default store;
-
-{
-    /*
-ConnectedReactRouter: 리덕스에서 주소를 변경 및 확인하기 위해 history 객체를 관리하며 필요에 의해 꺼낼 쓸 수 있는 라이브러리.
-단방향 흐름을 통해 리덕스에서 rotuer상태를 동기화 할 수 있다 (history객체 -> store -> router -> component)
-redux-saga를 통해 히스토리 객체를 디스패치 할 수 있다.
-
-
-
-*/
-}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Tag } from "antd";
+import { Divider, Layout, Tag } from "antd";
 import {
     TwitterOutlined,
     YoutubeOutlined,
@@ -11,11 +11,14 @@ const Footer = () => {
 
     return (
         <>
+            <Divider></Divider>
             <Footer
                 style={{
                     textAlign: "center",
-                    backgroundColor: "black",
-                    color: "whiteSmoke",
+                    backgroundColor: "#F0F2F5",
+                    color: "black",
+
+                    height: "100%",
                 }}
             >
                 <Tag icon={<TwitterOutlined />} color="#55acee">
@@ -34,9 +37,9 @@ const Footer = () => {
                 </Tag>
                 <div>
                     <br />
-                    <strong>Akiakmapro@gmail.com</strong>
+                    <strong>akiakmapro@gmail.com</strong>
                     <br />
-                    Copyright ©2021 Austin Hyunjun Kim | All Rights Reserved
+                    Copyright ©2020 Austin Hyunjun Kim | All Rights Reserved
                 </div>
             </Footer>
         </>

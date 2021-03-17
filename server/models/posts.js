@@ -13,11 +13,12 @@ const PostSchema = new mongoose.Schema({
     },
     views: {
         type: Number,
-        default: 0,
+        default: 10,
     },
     fileUrl: {
         type: String,
-        default: "https://source.unsplash.com/random/301x201",
+        default:
+            "https://uploads-ssl.webflow.com/5fa49896937b3a2ae974304c/5fc822839dd50a27b1bcc9b6_spinning-plates-301x201.jpg",
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,

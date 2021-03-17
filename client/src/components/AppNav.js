@@ -1,16 +1,22 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Col, Layout, Menu } from "antd";
-import { SettingOutlined, SketchOutlined } from "@ant-design/icons";
+import { Col, Layout, Menu, Badge } from "antd";
+import {
+    SettingOutlined,
+    CommentOutlined,
+    MessageFilled,
+    HomeOutlined,
+    HomeFilled,
+} from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 import {
     LOGIN_REQUEST,
     LOGOUT_REQUEST,
     CLEAR_ERROR_REQUEST,
+    NEWS_LOADING_REQUEST,
 } from "../redux/types";
 
 import {
-    NavLink,
     Modal,
     ModalHeader,
     ModalBody,
@@ -21,7 +27,10 @@ import {
     Input,
     Button,
 } from "reactstrap";
-import { Badge } from "antd";
+import SearchInput from "./search/searchInput";
+import axios from "axios";
+import moment from "moment";
+
 const Appnav = req => {
     const { SubMenu } = Menu;
 
@@ -45,7 +54,6 @@ const Appnav = req => {
     }, [errorMsg]);
 
     useEffect(() => {
-        // console.log("isAuthenticated", isAuthenticated);
         if (isAuthenticated) {
             setModal(false);
         }
@@ -75,61 +83,73 @@ const Appnav = req => {
         e.preventDefault();
         const { email, password } = form;
         const user = { email, password };
-        console.log("Appnav:", user);
         dispatch({
             type: LOGIN_REQUEST,
             payload: user,
         });
     };
-
     let url = useLocation();
 
-    const styler = {
-        "ant-menu-item-selected": {
-            color: "pink",
-        },
-    };
-
+    // here's for badge count
+    const newFeed = useSelector(state => state.badge.count);
     return (
         <Layout>
-            <Header style={{ backgroundColor: "black" }} className="header">
-                <div className="logo" />
+            <Header
+                style={{
+                    backgroundColor: "white",
+                    position: "fixed",
+                    zIndex: "100",
+                }}
+                className="header"
+            >
                 <Menu
                     className="header-menu"
                     style={{
-                        backgroundColor: "black",
-                        color: "whitesmoke",
-                        fontSize: "1.2rem",
-                        borderBottom: "none",
+                        backgroundColor: "white",
+                        color: "black",
+                        fontSize: "1rem",
+                        border: "1px dot grey",
+                        borderRadius: "1rem",
                     }}
                     mode="horizontal"
                     selectedKeys={[url.pathname]}
                 >
-                    <Menu.Item key="/">
-                        <Link style={{ color: "whitesmoke" }} to="/">
+                    <Menu.Item style={{ borderBottom: "none" }} key="/">
+                        <Link
+                            style={{
+                                color: "black",
+                            }}
+                            to="/"
+                        >
+                            {url.pathname === "/" ? (
+                                <HomeFilled />
+                            ) : (
+                                <HomeOutlined />
+                            )}
                             Home
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key="/news">
-                        <Link style={{ color: "whitesmoke" }} to="/news">
+                    <Menu.Item style={{ borderBottom: "none" }} key="/news">
+                        <Link style={{ color: "black" }} to="/news">
+                            {url.pathname === "/news" ? (
+                                <MessageFilled />
+                            ) : (
+                                <CommentOutlined />
+                            )}
                             News
+                            <Badge
+                                style={{ marginBottom: "1rem" }}
+                                count={newFeed}
+                                overflowCount={99}
+                                size={"small"}
+                            ></Badge>
                         </Link>
                     </Menu.Item>
-
-                    <Menu.Item key="/board">
-                        {/* <Badge dot size={"small"}> */}
-                        <Link style={{ color: "whitesmoke" }} to="/board">
-                            Board
-                        </Link>
-                        {/* </Badge> */}
+                    <Menu.Item>
+                        <div>
+                            <SearchInput />
+                        </div>
                     </Menu.Item>
-
-                    <Menu.Item key="/chart">
-                        <Link style={{ color: "whitesmoke" }} to="/chart">
-                            Chart
-                        </Link>
-                    </Menu.Item>
-                    <Menu.Item key="/attachments">Attachments</Menu.Item>
                     {isAuthenticated ? (
                         <SubMenu
                             key="sub4"
@@ -138,7 +158,7 @@ const Appnav = req => {
                         >
                             <Menu.ItemGroup title="settings">
                                 <Menu.Item key="setting:1" onClick={removeTokn}>
-                                    logout
+                                    LOGOUT
                                 </Menu.Item>
                                 <Menu.Item key="setting:2">
                                     <Link to="/post">POST</Link>
@@ -146,7 +166,11 @@ const Appnav = req => {
                             </Menu.ItemGroup>
                         </SubMenu>
                     ) : (
-                        <SubMenu key="sub4" icon={<SettingOutlined />}>
+                        <SubMenu
+                            style={{ borderBottom: "none" }}
+                            key="sub4"
+                            icon={<SettingOutlined />}
+                        >
                             <Menu.ItemGroup title="admin">
                                 <Menu.Item
                                     key="setting:1"
@@ -154,7 +178,9 @@ const Appnav = req => {
                                 >
                                     connect
                                 </Menu.Item>
-                                <Menu.Item key="setting:2">Option 2</Menu.Item>
+                                <Menu.Item key="setting:2" disabled>
+                                    test
+                                </Menu.Item>
                             </Menu.ItemGroup>
                         </SubMenu>
                     )}

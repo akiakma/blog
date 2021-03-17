@@ -5,7 +5,7 @@ import authSaga from "./authSaga";
 import dotenv from "dotenv";
 import postSaga from "./postSaga";
 import commentSaga from "./commentSaga";
-// import realtimeSaga from "./realtimeSaga";
+import newsSaga from "./newsSaga";
 dotenv.config();
 
 axios.defaults.baseURL = process.env.REACT_APP_BASIC_SERVER_URL;
@@ -15,6 +15,6 @@ export default function* rootSaga() {
         fork(authSaga),
         fork(postSaga),
         fork(commentSaga),
-        // fork(realtimeSaga),
+        fork(newsSaga),
     ]);
 }

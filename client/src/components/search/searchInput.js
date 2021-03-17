@@ -4,8 +4,10 @@ import { useDispatch } from "react-redux";
 import { SEARCH_REQUEST } from "../../redux/types";
 import { Input, Space } from "antd";
 import { AudioOutlined } from "@ant-design/icons";
+import { Form } from "reactstrap";
 
 const SearchInput = () => {
+    const resetValue = useRef(null);
     const dispatch = useDispatch();
     const [form, setValues] = useState({ searchBy: "" });
 
@@ -14,9 +16,8 @@ const SearchInput = () => {
             ...form,
             [e.target.name]: e.target.value,
         });
-        console.log(form);
+        // console.log(form);
     };
-
     const onSubmit = async e => {
         await e.preventDefault();
         const { searchBy } = form;
@@ -26,12 +27,12 @@ const SearchInput = () => {
             payload: searchBy,
         });
 
-        console.log(searchBy, "Submit Body");
-        resetValue.current.value = "";
+        // console.log(searchBy, "Submit Body1");
+        // resetValue.current.value = "";
     };
-    const resetValue = useRef(null);
 
     const { Search } = Input;
+    // const resetValue = useRef(null);
 
     const suffix = (
         <AudioOutlined
@@ -45,20 +46,27 @@ const SearchInput = () => {
     const onSearch = value => console.log(value);
     return (
         <Fragment>
-            <Space direction="vertical">
+            {/* <Space direction="vertical">
                 <Search
+                    name="searchBy"
+                    onSubmit={onSubmit}
                     placeholder=""
+                    onChange={onChange}
                     onSearch={onSearch}
-                    style={{ width: 100 }}
+                    innerRef={resetValue}
+                    style={{ width: 200 }}
                 />
-            </Space>
-            {/* <Form onSubmit={onSubmit}>
+            </Space> */}
+            <Form onSubmit={onSubmit}>
                 <Input
                     name="searchBy"
+                    onSubmit={onSubmit}
+                    placeholder=""
                     onChange={onChange}
+                    onSearch={onSearch}
                     innerRef={resetValue}
                 />
-            </Form> */}
+            </Form>
         </Fragment>
     );
 };

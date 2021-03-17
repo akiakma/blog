@@ -13,80 +13,70 @@ import { Link } from "react-router-dom";
 // } from "reactstrap";
 import { Timeline, Button } from "antd";
 const PostCardOne = ({ posts }) => {
+    console.log(posts);
     return (
-        <>
-            <Timeline
-                pending="work in progress..."
-                reverse={true}
-                className="postCardTimeLine"
-            >
-                {/* <Timeline.Item>Create a services site 2015-09-01</Timeline.Item> */}
+        <div className="postCardOne">
+            <div className="postCardOne_main">
+                <div className="postCardOne_main_header">
+                    <div className="postCardOne_main_header_category">Code</div>
+                    <div className="postCardOne_main_header_title">Title</div>
+                    <div className="postCardOne_main_header_author">Author</div>
+                    <div className="postCardOne_main_header_date">Date</div>
+                    <div className="postCardOne_main_header_view">View</div>
+                </div>
                 {Array.isArray(posts)
-                    ? posts.map(post => {
+                    ? posts.map(posts => {
                           return (
-                              <Link
-                                  to={`/board/post/${post._id}`}
-                                  className="text-dark text-decoration-none"
-                              >
-                                  <Timeline.Item>
-                                      <strong>{post.title}</strong>
-                                      &nbsp;&nbsp;
-                                      <span style={{ fontSize: "0.4rem" }}>
-                                          {post.date}
-                                      </span>
-                                  </Timeline.Item>
+                              <Link to={`/board/post/${posts._id}`}>
+                                  <div className="postCardOne_main_body">
+                                      <div className="postCardOne_main_body_category">
+                                          {posts.category}
+                                      </div>
+                                      <div className="postCardOne_main_body_title">
+                                          {posts.title}
+                                      </div>
+                                      <div className="postCardOne_main_body_author">
+                                          Admin
+                                      </div>
+                                      <div className="postCardOne_main_body_date">
+                                          {posts.date}
+                                      </div>
+                                      <div className="postCardOne_main_body_view">
+                                          {posts.views}
+                                      </div>
+                                  </div>
                               </Link>
                           );
                       })
                     : null}
-            </Timeline>
 
-            {/* {Array.isArray(posts)
-                ? posts.map(({ _id, title, fileUrl, comments, views }) => {
-                      return (
-                          <div key={_id} className="col-md-4">
-                              <Link
-                                  to={`/board/post/${_id}`}
-                                  className="text-dark text-decoration-none"
-                              >
-                                  <Card className="mb-3">
-                                      <CardImg
-                                          top
-                                          alt="카드이미지"
-                                          src={fileUrl}
-                                      />
-                                      <CardBody>
-                                          <CardTitle className="text-truncate d-flex justify-content-between">
-                                              <span className="text-truncate">
-                                                  {title}
-                                              </span>
-                                              <span>
-                                                  <FontAwesomeIcon
-                                                      icon={faMouse}
-                                                  />
-                                                  &nbsp;&nbsp;
-                                                  <span>{views}</span>
-                                              </span>
-                                          </CardTitle>
-                                          <Row>
-                                              <Button
-                                                  color="primary"
-                                                  className="p-2 btn-block"
-                                              >
-                                                  More
-                                                  <Badge color="light">
-                                                      {comments.length}
-                                                  </Badge>
-                                              </Button>
-                                          </Row>
-                                      </CardBody>
-                                  </Card>
-                              </Link>
-                          </div>
-                      );
-                  })
-                : null} */}
-        </>
+                {/* <Timeline
+                    pending="work in progress..."
+                    reverse={true}
+                    className="postCardTimeLine"
+                >
+                    {/* <Timeline.Item>Create a services site 2015-09-01</Timeline.Item> */}
+                {/* {Array.isArray(posts)
+                        ? posts.map(post => {
+                              return (
+                                  <Link
+                                      to={`/board/post/${post._id}`}
+                                      className="text-dark text-decoration-none"
+                                  >
+                                      <Timeline.Item>
+                                          <strong>{post.title}</strong>
+                                          &nbsp;&nbsp;
+                                          <span style={{ fontSize: "0.4rem" }}>
+                                              {post.date}
+                                          </span>
+                                      </Timeline.Item>
+                                  </Link>
+                              );
+                          })
+                        : null}
+                </Timeline> */}
+            </div>
+        </div>
     );
 };
 

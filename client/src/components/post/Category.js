@@ -8,7 +8,7 @@ const { CheckableTag } = Tag;
 
 const Category = ({ posts }) => {
     return (
-        <>
+        <div className="categoryDiv">
             <span style={{ marginRight: 8 }}>categories:</span>
             {Array.isArray(posts)
                 ? posts.map(tag => (
@@ -19,7 +19,7 @@ const Category = ({ posts }) => {
                       </CheckableTag>
                   ))
                 : null}
-        </>
+        </div>
     );
 };
 

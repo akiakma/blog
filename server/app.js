@@ -11,6 +11,7 @@ import postRoutes from "./routes/api/post";
 import userRoutes from "./routes/api/user";
 import authRoutes from "./routes/api/auth";
 import searchRoutes from "./routes/api/ search";
+import newsRoutes from "./routes/api/news";
 
 const app = express();
 const { MONGO_URI } = config;
@@ -32,7 +33,7 @@ mongoose
         useCreateIndex: true,
         useFindAndModify: false,
     })
-    .then(() => console.log("MongoDB connecting Sucess!"))
+    .then(() => console.log("MongoDB connecting Success!!"))
     .catch(e => console.log(e));
 
 // Use routes
@@ -40,6 +41,7 @@ app.use("/api/post", postRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/search", searchRoutes);
+app.use("/api/news", newsRoutes);
 
 if (prod) {
     app.use(express.static(path.join(__dirname, "../client/build")));

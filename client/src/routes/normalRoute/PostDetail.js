@@ -6,7 +6,7 @@ import {
     POST_DELETE_REQUEST,
     USER_LOADING_REQUEST,
 } from "../../redux/types";
-import { Row, Col, Container } from "reactstrap";
+// import { Row, Col, Container } from "reactstrap";
 import { Link } from "react-router-dom";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import GrowingSpinner from "../../components/spinner/Spinner";
@@ -19,15 +19,32 @@ import {
 import BalloonEditor from "@ckeditor/ckeditor5-editor-balloon/src/ballooneditor";
 import { editorConfiguration } from "../../components/editor/EditorConfig";
 import Comments from "../../components/comments/Comments";
-import { Button, Menu, Dropdown } from "antd";
+import {
+    Button,
+    Menu,
+    Dropdown,
+    PageHeader,
+    Descriptions,
+    Row,
+    Col,
+    Divider,
+    Tag,
+    Popconfirm,
+    message,
+    Skeleton,
+} from "antd";
 // import { EditOutlined } from "@ant-design/icons";
 const PostDetail = req => {
+    console.log("정답은?", req);
     const dispatch = useDispatch();
     const { postDetail, creatorId, title, loading } = useSelector(
         state => state.post
     );
 
-    const { userId, userName } = useSelector(state => state.auth);
+    const { userId, userName, isAuthenticated } = useSelector(
+        state => state.auth
+    );
+
     const { comments } = useSelector(state => state.comment);
     useEffect(() => {
         dispatch({
@@ -60,9 +77,22 @@ const PostDetail = req => {
         </Menu>
     );
 
+    function confirmDelete() {
+        if (isAuthenticated === false) {
+            message.error("require permission");
+        } else {
+            onDeleteClick();
+            message.success("삭제되었습니다.");
+        }
+    }
+    function cancelDelete(e) {
+        console.log(e);
+        message.error("Click on No");
+    }
     const Body = (
         <>
-            <Row className="border-bottom border-top border-black p-3 mb-5 d-flex justify-content-between">
+            <Helmet title={`글 | ${title}`} />
+            {/* <Row className="border-bottom border-top border-black p-3 mb-5 d-flex justify-content-between">
                 {(() => {
                     if (postDetail && postDetail.creator) {
                         return (
@@ -73,7 +103,7 @@ const PostDetail = req => {
                                             {postDetail.category.categoryName}
                                         </button>
                                     </span>
-                                    {postDetail.title}
+                                    <span>{postDetail.title}</span>
                                 </div>
                                 <div className="align-self-end">
                                     <Dropdown.Button overlay={menu}>
@@ -86,73 +116,98 @@ const PostDetail = req => {
                         );
                     }
                 })()}
-            </Row>
+            </Row> */}
+
             {postDetail ? (
-                <Fragment>
-                    <div className="d-flex justify-content-end align-items-baseline small">
-                        &nbsp;
-                        <span>{postDetail.date}</span>
-                        &nbsp;&nbsp;
-                        {/* <span>{postDetail.comments.length}</span> */}
-                        &nbsp;&nbsp;
-                        <span>{postDetail.views}</span>
-                    </div>
-                    <Row className="mb-3">
-                        <CKEditor
-                            editor={BalloonEditor}
-                            data={postDetail.contents}
-                            config={editorConfiguration}
-                            disabled="true"
-                        />
+                <>
+                    <Row>
+                        <Col>
+                            <div>
+                                <PageHeader
+                                    ghost={true}
+                                    onBack={() => window.history.back()}
+                                    title={postDetail.title}
+                                    extra={[
+                                        <Link
+                                            to={`/post/${req.match.params.id}/edit`}
+                                        >
+                                            Edit
+                                        </Link>,
+                                        <Popconfirm
+                                            title="Are you sure to delete this task?"
+                                            onConfirm={confirmDelete}
+                                            onCancel={cancelDelete}
+                                            okText="Yes"
+                                            cancelText="No"
+                                        >
+                                            <a href="#">Delete</a>
+                                        </Popconfirm>,
+                                    ]}
+                                >
+                                    <Descriptions size="small" column={3}>
+                                        <Descriptions.Item label="Created">
+                                            Hyunjun Kim
+                                        </Descriptions.Item>
+                                        <Descriptions.Item label="Code">
+                                            <a>{postDetail._id}</a>
+                                        </Descriptions.Item>
+                                        <Descriptions.Item label="Creation Time">
+                                            {postDetail.date}
+                                        </Descriptions.Item>
+                                        <Descriptions.Item label="Views">
+                                            {postDetail.views}
+                                        </Descriptions.Item>
+                                        <Descriptions.Item label="Tag">
+                                            <Tag color="magenta">
+                                                {
+                                                    postDetail.category
+                                                        .categoryName
+                                                }
+                                            </Tag>
+                                        </Descriptions.Item>
+                                    </Descriptions>
+                                </PageHeader>
+                            </div>
+                            <Divider>본문</Divider>
+                            <Row
+                                style={{
+                                    backgroundColor: "#F0F2F5",
+                                    width: "100vw",
+                                    height: "100vh",
+                                    overflow: "auto",
+                                }}
+                            >
+                                <CKEditor
+                                    editor={BalloonEditor}
+                                    data={postDetail.contents}
+                                    config={editorConfiguration}
+                                    disabled="true"
+                                />
+                            </Row>
+                        </Col>
                     </Row>
-                    <Row>안녕?</Row>
-                    {/* <Row>
-                        <Container className="mb-3 border border-blue rounded">
-                            {Array.isArray(comments)
-                                ? comments.map(
-                                      ({
-                                          contents,
-                                          creator,
-                                          date,
-                                          _id,
-                                          creatorName,
-                                      }) => (
-                                          <div key={_id}>
-                                              <Row className="justify-content-between p-2">
-                                                  <div className="font-weight-bold">
-                                                      {creatorName
-                                                          ? creatorName
-                                                          : creator}
-                                                  </div>
-                                                  <div className="text-small">
-                                                      {date}
-                                                  </div>
-                                              </Row>
-                                              <Row className="p-2">
-                                                  <div>{contents}</div>
-                                              </Row>
-                                              <hr />
-                                          </div>
-                                      )
-                                  )
-                                : "Creator"}
-                            <Comments
-                                id={req.match.params.id}
-                                userId={userId}
-                                userName={userName}
-                            />
-                        </Container>
-                    </Row> */}
-                </Fragment>
+                </>
             ) : null}
         </>
     );
 
     return (
-        <div>
-            <Helmet title={`Board | ${title}`} />
-            {loading === true ? GrowingSpinner : Body}
-        </div>
+        // <div>
+        //     {loading === true ? GrowingSpinner : Body}
+        // </div>
+
+        <>
+            {loading === true ? (
+                <div style={{ height: "60rem" }}>
+                    <Skeleton active />
+                    <Skeleton active />
+                    <Skeleton active />
+                    <Skeleton active />
+                </div>
+            ) : (
+                Body
+            )}
+        </>
     );
 };
 

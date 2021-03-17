@@ -3,7 +3,8 @@ import { connectRouter } from "connected-react-router";
 import authReducer from "./authReducer";
 import postReducer from "./postReducer";
 import commentReducer from "./CommentReducer";
-import realtimeReducer from "./realtimeReducer";
+import newsReducer from "./newsReducer";
+import badgeReducer from "./badgeReducer";
 
 const createRootReducer = history =>
     combineReducers({
@@ -11,7 +12,8 @@ const createRootReducer = history =>
         auth: authReducer,
         post: postReducer,
         comment: commentReducer,
-        data: realtimeReducer,
+        news: newsReducer,
+        badge: badgeReducer,
     });
 
 export default createRootReducer;
