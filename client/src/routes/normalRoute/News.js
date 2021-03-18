@@ -177,7 +177,7 @@ const News = () => {
                             alt="avatar"
                         />
                     }
-                    content={<p style={{ marginTop: "0.5rem" }}>{content}</p>}
+                    content={<p style={{ marginTop: "0.5rem " }}>{content}</p>}
                     datetime={
                         <>
                             <Tooltip

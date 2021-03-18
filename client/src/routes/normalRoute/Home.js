@@ -6,7 +6,6 @@ import {
 } from "../../redux/types";
 import { Helmet } from "react-helmet";
 import moment from "moment";
-
 import PostCardOne from "../../components/post/PostCardOne";
 import Category from "../../components/post/Category";
 import { Link } from "react-router-dom";
@@ -28,6 +27,7 @@ const Home = () => {
                 const newsDate = moment(item.date.split("-")).format(
                     "YYYYMMDD"
                 );
+                console.log("newDate", newsDate);
                 const nowDate = moment().format("YYYYMMDD");
                 // console.log("newsDate", newsDate);
                 // console.log("nowDate", nowDate);
