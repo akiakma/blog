@@ -92,36 +92,12 @@ const PostDetail = req => {
     const Body = (
         <>
             <Helmet title={`글 | ${title}`} />
-            {/* <Row className="border-bottom border-top border-black p-3 mb-5 d-flex justify-content-between">
-                {(() => {
-                    if (postDetail && postDetail.creator) {
-                        return (
-                            <Fragment>
-                                <div className="font-weight-bold text-big">
-                                    <span className="mr-3">
-                                        <button disabled>
-                                            {postDetail.category.categoryName}
-                                        </button>
-                                    </span>
-                                    <span>{postDetail.title}</span>
-                                </div>
-                                <div className="align-self-end">
-                                    <Dropdown.Button overlay={menu}>
-                                        <strong>
-                                            {postDetail.creator.name}
-                                        </strong>
-                                    </Dropdown.Button>
-                                </div>
-                            </Fragment>
-                        );
-                    }
-                })()}
-            </Row> */}
 
             {postDetail ? (
                 <>
                     <Row>
-                        <Col>
+                        <Col span={4}></Col>
+                        <Col span={16}>
                             <div>
                                 <PageHeader
                                     ghost={true}
@@ -168,23 +144,21 @@ const PostDetail = req => {
                                     </Descriptions>
                                 </PageHeader>
                             </div>
-                            <Divider>본문</Divider>
-                            <Row
-                                style={{
-                                    backgroundColor: "#F0F2F5",
-                                    width: "100vw",
-                                    height: "100vh",
-                                    overflow: "auto",
-                                }}
-                            >
-                                <CKEditor
-                                    editor={BalloonEditor}
-                                    data={postDetail.contents}
-                                    config={editorConfiguration}
-                                    disabled="true"
-                                />
-                            </Row>
                         </Col>
+                        <Col span={4}></Col>
+                    </Row>
+                    <Divider>본문</Divider>
+                    <Row>
+                        <Col span={4}></Col>
+                        <Col span={16}>
+                            <CKEditor
+                                editor={BalloonEditor}
+                                data={postDetail.contents}
+                                config={editorConfiguration}
+                                disabled="true"
+                            />
+                        </Col>
+                        <Col span={4}></Col>
                     </Row>
                 </>
             ) : null}
