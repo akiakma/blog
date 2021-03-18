@@ -110,3 +110,9 @@ textarea {
     justify-content: center;
     width: 100%;
 }
+
+@media only screen and (max-width: 735px) {
+    .site-layout-content {
+        color: hsl(240, 44%, 85%);
+    }
+}

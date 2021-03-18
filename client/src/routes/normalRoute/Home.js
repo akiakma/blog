@@ -1,7 +1,11 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { POSTS_LOADING_REQUEST } from "../../redux/types";
+import {
+    BADGE_UPLOADING_SUCCESS,
+    POSTS_LOADING_REQUEST,
+} from "../../redux/types";
 import { Helmet } from "react-helmet";
+import moment from "moment";
 
 import PostCardOne from "../../components/post/PostCardOne";
 import Category from "../../components/post/Category";
@@ -14,7 +18,32 @@ import {
     EyeOutlined,
 } from "@ant-design/icons";
 
+import axios from "axios";
 const Home = () => {
+    const [badge, setBadge] = useState(0);
+    useEffect(() => {
+        loadNewsAPI().then(item => {
+            const data = item.data.newsFindeResult;
+            const filtering = data.filter(item => {
+                const newsDate = moment(item.date.split("-")).format(
+                    "YYYYMMDD"
+                );
+                const nowDate = moment().format("YYYYMMDD");
+                // console.log("newsDate", newsDate);
+                // console.log("nowDate", nowDate);
+                return nowDate - newsDate === -100;
+                //  item.date === "2021-03-17-18-30";
+            });
+            dispatch({
+                type: BADGE_UPLOADING_SUCCESS,
+                payload: filtering.length,
+            });
+        });
+    }, [badge]);
+
+    const loadNewsAPI = () => {
+        return axios.get("/api/news");
+    };
     const iteration = () => {
         return Array.isArray(posts)
             ? posts &&
@@ -56,10 +85,10 @@ const Home = () => {
     );
     return (
         <Row>
-            <Col span={6}>
+            <Col span={4}>
                 <Helmet title="Home | 블로그" />
             </Col>
-            <Col span={14}>
+            <Col span={16}>
                 <List
                     itemLayout="vertical"
                     size="large"
@@ -110,7 +139,12 @@ const Home = () => {
                                 />,
                             ]}
                             extra={
-                                <img height={200} alt="logo" src={item.url} />
+                                <img
+                                    height={100}
+                                    width={100}
+                                    alt="logo"
+                                    src={item.url}
+                                />
                             }
                         >
                             <List.Item.Meta
@@ -125,7 +159,7 @@ const Home = () => {
                     )}
                 />
             </Col>
-            <Col span={6}></Col>
+            <Col span={4}></Col>
         </Row>
     );
 };

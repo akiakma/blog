@@ -6,7 +6,7 @@ import {
     FacebookOutlined,
     LinkedinOutlined,
 } from "@ant-design/icons";
-const Footer = () => {
+const BottomLayout = () => {
     const { Footer } = Layout;
 
     return (
@@ -15,7 +15,7 @@ const Footer = () => {
             <Footer
                 style={{
                     textAlign: "center",
-                    backgroundColor: "#F0F2F5",
+                    backgroundColor: "white",
                     color: "black",
 
                     height: "100%",
@@ -42,8 +42,9 @@ const Footer = () => {
                     Copyright ©2020 Austin Hyunjun Kim | All Rights Reserved
                 </div>
             </Footer>
+            <Divider></Divider>
         </>
     );
 };
 
-export default Footer;
+export default BottomLayout;

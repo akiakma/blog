@@ -13,7 +13,6 @@ import {
     LOGIN_REQUEST,
     LOGOUT_REQUEST,
     CLEAR_ERROR_REQUEST,
-    NEWS_LOADING_REQUEST,
 } from "../redux/types";
 
 import {
@@ -28,8 +27,6 @@ import {
     Button,
 } from "reactstrap";
 import SearchInput from "./search/searchInput";
-import axios from "axios";
-import moment from "moment";
 
 const Appnav = req => {
     const { SubMenu } = Menu;
@@ -93,7 +90,7 @@ const Appnav = req => {
     // here's for badge count
     const newFeed = useSelector(state => state.badge.count);
     return (
-        <Layout>
+        <div>
             <Header
                 style={{
                     backgroundColor: "white",
@@ -108,8 +105,7 @@ const Appnav = req => {
                         backgroundColor: "white",
                         color: "black",
                         fontSize: "1rem",
-                        border: "1px dot grey",
-                        borderRadius: "1rem",
+                        border: "none",
                     }}
                     mode="horizontal"
                     selectedKeys={[url.pathname]}
@@ -220,7 +216,7 @@ const Appnav = req => {
                     </Form>
                 </ModalBody>
             </Modal>
-        </Layout>
+        </div>
     );
 };
 

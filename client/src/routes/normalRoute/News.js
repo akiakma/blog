@@ -228,8 +228,8 @@ const News = () => {
         <Row>
             <Helmet title="News | 블로그" />
 
-            <Col span={8}></Col>
-            <Col span={10}>
+            <Col xs={4} md={7}></Col>
+            <Col xs={14} md={10}>
                 {
                     <>
                         <Divider>
@@ -269,7 +269,7 @@ const News = () => {
                 <Divider>담벼락</Divider>
                 <div>{renderGet()}</div>
             </Col>
-            <Col span={8}></Col>
+            <Col xs={4} md={7}></Col>
         </Row>
     );
 };

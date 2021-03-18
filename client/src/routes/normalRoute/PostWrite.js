@@ -1,14 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    Form,
-    FormGroup,
-    Label,
-    Input,
-    Button,
-    Col,
-    Progress,
-} from "reactstrap";
+import { Form, FormGroup, Label, Input, Button, Progress } from "reactstrap";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor";
 import { editorConfiguration } from "../../components/editor/EditorConfig";
@@ -16,6 +8,7 @@ import Myinit from "../../components/editor/UploadAdapter";
 import { POST_UPLOADING_REQUEST } from "../../redux/types";
 
 import dotenv from "dotenv";
+import { Col, Row } from "antd";
 dotenv.config();
 
 const PostWrite = () => {
@@ -98,52 +91,56 @@ const PostWrite = () => {
     };
 
     return (
-        <div>
-            {isAuthenticated ? (
-                <Form onSubmit={onSubmit}>
-                    <FormGroup className="mb-3">
-                        <Label for="title">Title</Label>
-                        <Input
-                            type="text"
-                            name="title"
-                            id="title"
-                            className="form-control"
-                            onChange={onChange}
-                        />
-                    </FormGroup>
-                    <FormGroup className="mb-3">
-                        <Label for="category">Category</Label>
-                        <Input
-                            type="text"
-                            name="category"
-                            id="category"
-                            className="form-control"
-                            onChange={onChange}
-                        />
-                    </FormGroup>
-                    <FormGroup className="mb-3">
-                        <Label for="content">Content</Label>
-                        <CKEditor
-                            editor={ClassicEditor}
-                            config={editorConfiguration}
-                            onInit={Myinit}
-                            onBlur={getDataFromCKEditor}
-                        />
-                        <Button
-                            color="success"
-                            block
-                            className="mt-3 col-md-2 offset-md-10 mb-3"
-                        >
-                            Submit
-                        </Button>
-                    </FormGroup>
-                </Form>
-            ) : (
-                <Col width={50} className="p-5 m-5">
-                    <Progress animated color="info" value={100} />
-                </Col>
-            )}
-        </div>
+        <Row>
+            <Col span={6}></Col>
+            <Col span={12}>
+                {isAuthenticated ? (
+                    <Form style={{ marginTop: "2rem" }} onSubmit={onSubmit}>
+                        <FormGroup className="mb-3">
+                            <Label for="title">Title</Label>
+                            <Input
+                                type="text"
+                                name="title"
+                                id="title"
+                                className="form-control"
+                                onChange={onChange}
+                            />
+                        </FormGroup>
+                        <FormGroup className="mb-3">
+                            <Label for="category">Category</Label>
+                            <Input
+                                type="text"
+                                name="category"
+                                id="category"
+                                className="form-control"
+                                onChange={onChange}
+                            />
+                        </FormGroup>
+                        <FormGroup className="mb-3">
+                            <Label for="content">Content</Label>
+                            <CKEditor
+                                editor={ClassicEditor}
+                                config={editorConfiguration}
+                                onInit={Myinit}
+                                onBlur={getDataFromCKEditor}
+                            />
+                            <Button
+                                color="success"
+                                block
+                                className="mt-3 col-md-2 offset-md-10 mb-3"
+                            >
+                                Submit
+                            </Button>
+                        </FormGroup>
+                    </Form>
+                ) : (
+                    <div width={50} className="p-5 m-5">
+                        <Progress animated color="info" value={100} />
+                    </div>
+                )}
+            </Col>
+            <Col span={6}></Col>
+        </Row>
     );
 };
 
