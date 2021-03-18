@@ -111,8 +111,8 @@ textarea {
     width: 100%;
 }
 
-@media only screen and (max-width: 735px) {
-    .site-layout-content {
-        color: hsl(240, 44%, 85%);
+@media only(max-width: 926px) {
+    .postdetail-header {
+        display: none;
     }
 }

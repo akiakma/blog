@@ -120,28 +120,30 @@ const PostDetail = req => {
                                         </Popconfirm>,
                                     ]}
                                 >
-                                    <Descriptions size="small" column={3}>
-                                        <Descriptions.Item label="Created">
-                                            Hyunjun Kim
-                                        </Descriptions.Item>
-                                        <Descriptions.Item label="Code">
-                                            <a>{postDetail._id}</a>
-                                        </Descriptions.Item>
-                                        <Descriptions.Item label="Creation Time">
-                                            {postDetail.date}
-                                        </Descriptions.Item>
-                                        <Descriptions.Item label="Views">
-                                            {postDetail.views}
-                                        </Descriptions.Item>
-                                        <Descriptions.Item label="Tag">
-                                            <Tag color="magenta">
-                                                {
-                                                    postDetail.category
-                                                        .categoryName
-                                                }
-                                            </Tag>
-                                        </Descriptions.Item>
-                                    </Descriptions>
+                                    <div className="postdetail-header">
+                                        <Descriptions size="small" column={3}>
+                                            <Descriptions.Item label="Created">
+                                                Hyunjun Kim
+                                            </Descriptions.Item>
+                                            <Descriptions.Item label="Code">
+                                                <a>{postDetail._id}</a>
+                                            </Descriptions.Item>
+                                            <Descriptions.Item label="Creation Time">
+                                                {postDetail.date}
+                                            </Descriptions.Item>
+                                            <Descriptions.Item label="Views">
+                                                {postDetail.views}
+                                            </Descriptions.Item>
+                                            <Descriptions.Item label="Tag">
+                                                <Tag color="magenta">
+                                                    {
+                                                        postDetail.category
+                                                            .categoryName
+                                                    }
+                                                </Tag>
+                                            </Descriptions.Item>
+                                        </Descriptions>
+                                    </div>
                                 </PageHeader>
                             </div>
                         </Col>
