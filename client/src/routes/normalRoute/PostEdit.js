@@ -133,6 +133,7 @@ const PostEdit = () => {
                             id="category"
                             className="form-control"
                             onChange={onChange}
+                            disabled
                         />
                     </FormGroup>
                     <FormGroup className="mb-3">
