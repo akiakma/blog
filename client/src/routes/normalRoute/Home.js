@@ -47,7 +47,7 @@ const Home = () => {
     const iteration = () => {
         return Array.isArray(posts)
             ? posts &&
-                  posts.map(item => {
+                  posts.map((item, index) => {
                       listData.push({
                           href: `/board/post/${item._id}`,
                           title: item.title,
@@ -62,6 +62,7 @@ const Home = () => {
                           date: item.date,
                           view: item.views,
                           url: item.fileUrl,
+                          index: index,
                       });
                   })
             : null;
@@ -148,10 +149,15 @@ const Home = () => {
                             }
                         >
                             <List.Item.Meta
-                                avatar={
-                                    <Avatar src={item.avatar} size="large" />
+                                // avatar={
+                                //     <Avatar src={item.avatar} size="large" />
+                                // }
+                                title={
+                                    <a href={item.href}>
+                                        <strong>{item.index + 1}. </strong>
+                                        {item.title}
+                                    </a>
                                 }
-                                title={<a href={item.href}>{item.title}</a>}
                                 description={item.description}
                             />
                             {item.content}
