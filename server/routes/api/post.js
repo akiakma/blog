@@ -229,7 +229,7 @@ router.get("/:id/edit", auth, async (req, res, next) => {
 router.post("/:id/edit", auth, async (req, res, next) => {
     console.log(req, "api/post/:id/edit");
     const {
-        body: { title, contents, fileUrl, id },
+        body: { title, contents, fileUrl, id, date },
     } = req;
 
     try {
@@ -239,7 +239,6 @@ router.post("/:id/edit", auth, async (req, res, next) => {
                 title,
                 contents,
                 fileUrl,
-                date: moment().format("YYYY-MM-DD"),
             },
             { new: true }
         );
