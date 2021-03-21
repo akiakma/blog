@@ -125,7 +125,7 @@ const Home = () => {
                             actions={[
                                 <IconText
                                     icon={EditOutlined}
-                                    text="admin"
+                                    text="현준"
                                     key="list-vertical-star-o"
                                 />,
                                 <IconText
